@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peavine Junk | Junk Removal in Reno</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: #111;
+      background: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      padding: 0 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      color: #fff;
+      transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.9);
+      color: #111;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .nav-btn,
+    .primary-btn,
+    .secondary-btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-btn {
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.95);
+      color: #111;
+      font-size: 0.85rem;
+    }
+
+    .navbar.scrolled .nav-btn {
+      background: rgba(17, 17, 17, 0.9);
+      color: #fff;
+    }
+
+    .nav-btn:hover,
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border: none;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .navbar.scrolled .menu-btn {
+      background: rgba(17, 17, 17, 0.08);
+    }
+
+    .menu-btn span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: #fff;
+      margin: 4px auto;
+      transition: 0.2s ease;
+    }
+
+    .navbar.scrolled .menu-btn span {
+      background: #111;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(18px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      font-size: 1.7rem;
+      font-weight: 800;
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 90px 24px 40px;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.52)),
+        url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftravelnevada.com%2Fwp-content%2Fuploads%2F2020%2F04%2Fplace-26003-original-1506448230-59ca93665ab52-scaled.jpg&f=1&nofb=1&ipt=006c9e713618b15c713d73f8b9b1eb5e3a0a955528ee6d24187d0c96aa70e508") center/cover no-repeat;
+      color: #fff;
+    }
+
+    .hero-content {
+      max-width: 980px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 800;
+      opacity: 0.9;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 660px;
+      margin: 0 auto 34px;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      min-width: 210px;
+      padding: 14px 28px;
+      font-size: 0.95rem;
+    }
+
+    .primary-btn {
+      background: #fff;
+      color: #111;
+    }
+
+    .secondary-btn {
+      background: rgba(23, 23, 23, 0.72);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    section {
+      padding: 96px 44px;
+    }
+
+    .section-header {
+      max-width: 760px;
+      margin: 0 auto 54px;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2.1rem, 5vw, 4.4rem);
+      letter-spacing: -0.055em;
+      margin-bottom: 14px;
+    }
+
+    .section-header p {
+      color: #555;
+      line-height: 1.65;
+      font-size: 1.05rem;
+    }
+
+    .service-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      min-height: 230px;
+      padding: 28px;
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.07);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    .service-card .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: #111;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      margin-bottom: 24px;
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .service-card p {
+      color: #606060;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .split {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .image-panel {
+      min-height: 560px;
+      border-radius: 34px;
+      background:
+        linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.35)),
+        url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    .text-panel {
+      border-radius: 34px;
+      background: #111;
+      color: #fff;
+      padding: 54px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .text-panel h2 {
+      font-size: clamp(2.2rem, 4.5vw, 4.7rem);
+      letter-spacing: -0.06em;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .text-panel p {
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.75;
+      margin-bottom: 30px;
+      font-size: 1.02rem;
+    }
+
+    .steps {
+      display: grid;
+      gap: 18px;
+    }
+
+    .step {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.13);
+    }
+
+    .step-number {
+      color: rgba(255, 255, 255, 0.45);
+      font-weight: 800;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .pricing {
+      background: #fff;
+    }
+
+    .pricing-card {
+      max-width: 920px;
+      margin: 0 auto;
+      border-radius: 36px;
+      padding: 44px;
+      background: #f5f5f5;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: center;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+    }
+
+    .pricing-card h3 {
+      font-size: clamp(2rem, 4vw, 3.7rem);
+      letter-spacing: -0.055em;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .pricing-card p,
+    .pricing-list li {
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .pricing-list {
+      list-style: none;
+      display: grid;
+      gap: 13px;
+    }
+
+    .pricing-list li::before {
+      content: "✓";
+      display: inline-grid;
+      place-items: center;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      font-size: 0.72rem;
+      margin-right: 10px;
+    }
+
+    .quote {
+      min-height: 74vh;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.64), rgba(0, 0, 0, 0.64)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80") center/cover fixed;
+      color: #fff;
+    }
+
+    .quote-box {
+      max-width: 720px;
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+
+    .quote-box h2 {
+      font-size: clamp(2.5rem, 6vw, 5.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      margin-bottom: 20px;
+    }
+
+    .quote-box p {
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.65;
+      margin-bottom: 28px;
+      font-size: 1.1rem;
+    }
+
+    .quote-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .quote-form input,
+    .quote-form textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      outline: none;
+      border-radius: 18px;
+      padding: 16px 18px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font: inherit;
+      backdrop-filter: blur(12px);
+    }
+
+    .quote-form input::placeholder,
+    .quote-form textarea::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .quote-form textarea,
+    .quote-form button,
+    .form-message {
+      grid-column: 1 / -1;
+    }
+
+    .quote-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .quote-form button {
+      border: none;
+      border-radius: 999px;
+      padding: 16px 22px;
+      background: #fff;
+      color: #111;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .quote-form button:hover {
+      transform: translateY(-2px);
+    }
+
+    .form-message {
+      min-height: 24px;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 34px 44px;
+      background: #111;
+      color: rgba(255, 255, 255, 0.72);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .navbar {
+        padding: 0 22px;
+      }
+
+      .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .split,
+      .pricing-card {
+        grid-template-columns: 1fr;
+      }
+
+      .image-panel {
+        min-height: 420px;
+      }
+
+      .text-panel {
+        padding: 38px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      section {
+        padding: 76px 18px;
+      }
+
+      .hero {
+        padding-inline: 18px;
+      }
+
+      .hero-buttons,
+      .quote-form {
+        grid-template-columns: 1fr;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        width: 100%;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card,
+      .text-panel {
+        padding: 28px;
+        border-radius: 26px;
+      }
+
+      .quote-form {
+        display: grid;
+      }
+
+      footer {
+        padding: 28px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <a href="#top" class="logo">Peavine Junk</a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#quote">Quote</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-btn" href="mailto:chancebauer775@gmail.com">Email Now</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#quote">Get Quote</a>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Reno Junk Removal</div>
+        <h1>Clear space. Fast.</h1>
+        <p>
+          Modern junk removal for homes, rentals, garages, yards, offices, and job sites. Simple scheduling, upfront pricing, and clean results.
+        </p>
+        <div class="hero-buttons">
+          <a class="primary-btn" href="#quote">Get a Free Quote</a>
+          <a class="secondary-btn" href="#services">View Services</a>
+        </div>
+      </div>
+      <div class="scroll-indicator">Scroll</div>
+    </section>
+
+    <section id="services">
+      <div class="section-header reveal">
+        <h2>Junk gone without the headache.</h2>
+        <p>
+          Peavine Junk handles the heavy lifting so you can get your space back without renting a truck, making dump runs, or wasting your weekend.
+        </p>
+      </div>
+
+      <div class="service-grid">
+        <article class="service-card reveal">
+          <div class="icon">🏠</div>
+          <h3>Home Cleanouts</h3>
+          <p>Furniture, boxes, appliances, clutter, and unwanted items removed from houses, apartments, and garages.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <div class="icon">🌲</div>
+          <h3>Yard Debris</h3>
+          <p>Branches, brush, old planters, outdoor junk, and cleanup loads hauled away quickly and cleanly.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <div class="icon">🛋️</div>
+          <h3>Furniture Removal</h3>
+          <p>Couches, mattresses, tables, dressers, desks, and bulky items removed without damaging your space.</p>
+        </article>
+
+        <article class="service-card reveal">
+          <div class="icon">🏗️</div>
+          <h3>Job Site Pickup</h3>
+          <p>Light construction debris, remodel waste, packaging, and cleanup loads for contractors and homeowners.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="split">
+        <div class="image-panel reveal" aria-label="Clean outdoor mountain scene"></div>
+        <div class="text-panel reveal">
+          <h2>Book it. Point to it. We haul it.</h2>
+          <p>
+            A clean service experience from the first message to the final sweep. Send a photo, get a quote, and choose a pickup window that works for you.
+          </p>
+          <div class="steps">
+            <div class="step">
+              <span class="step-number">01</span>
+              <div>
+                <strong>Send photos</strong>
+                <span>Text pictures of the junk or fill out the quote form.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-number">02</span>
+              <div>
+                <strong>Approve your quote</strong>
+                <span>Get clear pricing before anything gets loaded.</span>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-number">03</span>
+              <div>
+                <strong>Enjoy the space</strong>
+                <span>We remove, sweep up, and haul everything away.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="section-header reveal">
+        <h2>Simple quotes. No surprises.</h2>
+        <p>Every job is different, so pricing is based on volume, weight, access, and disposal cost.</p>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div>
+          <h3>Free estimates.</h3>
+          <p>
+            Send photos for a fast estimate or schedule an in-person quote for larger cleanouts.
+          </p>
+        </div>
+        <ul class="pricing-list">
+          <li>Same-day and next-day availability when possible</li>
+          <li>Single-item pickups to full cleanouts</li>
+          <li>Upfront pricing before loading</li>
+          <li>Responsible disposal whenever possible</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="quote" id="quote">
+      <div class="quote-box reveal">
+        <div class="eyebrow">Get Started</div>
+        <h2>Ready to clear it out?</h2>
+        <p>
+          Tell us what needs to go. We’ll follow up with a fast quote and the next available pickup window.
+        </p>
+
+        <form class="quote-form" id="quoteForm" action="https://formspree.io/f/xvzyrwdq" method="POST">
+          <input type="text" id="name" name="name" placeholder="Name" required />
+          <input type="tel" id="phone" name="phone" placeholder="Phone number" required />
+          <input type="text" id="location" name="location" placeholder="City / area" required />
+          <input type="text" id="loadSize" name="loadSize" placeholder="Load size: small, medium, large" />
+          <textarea id="details" name="details" placeholder="What do you need removed?" required></textarea>
+          <input type="hidden" name="_subject" value="New Peavine Junk Quote Request">
+          <button type="submit">Request Quote</button>
+          <p class="form-message" id="formMessage"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> Peavine Junk. All rights reserved.</span>
+    <span>Reno • Sparks • North Valleys • Surrounding Areas</span>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById("navbar");
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 24);
+    });
+
+    menuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => mobileMenu.classList.remove("open"));
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".reveal").forEach(element => {
+      revealObserver.observe(element);
+    });
+  </script>
+</body>
+</html>
