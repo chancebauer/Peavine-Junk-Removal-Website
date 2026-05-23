@@ -408,6 +408,73 @@
       margin-right: 10px;
     }
 
+
+
+    .text-cta {
+      background: #111;
+      color: #fff;
+      padding: 86px 44px;
+    }
+
+    .text-cta-card {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 36px;
+      padding: 46px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.14);
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 28px;
+      align-items: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+    }
+
+    .text-cta h2 {
+      font-size: clamp(2.2rem, 5vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+      margin-bottom: 16px;
+    }
+
+    .text-cta p {
+      color: rgba(255, 255, 255, 0.76);
+      line-height: 1.7;
+      font-size: 1.04rem;
+      max-width: 620px;
+    }
+
+    .phone-actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .phone-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .phone-btn.primary {
+      background: #fff;
+      color: #111;
+    }
+
+    .phone-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .phone-btn:hover {
+      transform: translateY(-2px);
+    }
+
     .quote {
       min-height: 74vh;
       display: flex;
@@ -552,6 +619,11 @@
         grid-template-columns: 1fr;
       }
 
+      .text-cta-card {
+        grid-template-columns: 1fr;
+      }
+
+
       .image-panel {
         min-height: 420px;
       }
@@ -594,6 +666,17 @@
         display: grid;
       }
 
+
+
+      .text-cta {
+        padding: 76px 18px;
+      }
+
+      .text-cta-card {
+        padding: 28px;
+        border-radius: 26px;
+      }
+
       footer {
         padding: 28px 18px;
       }
@@ -610,7 +693,7 @@
       <a href="#quote">Quote</a>
     </nav>
     <div class="nav-actions">
-      <a class="nav-btn" href="#quote">Email Now</a>
+      <a class="nav-btn" href="tel:7755020332">Call / Text Now</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu">
       <span></span>
@@ -623,6 +706,7 @@
     <a href="#services">Services</a>
     <a href="#process">Process</a>
     <a href="#pricing">Pricing</a>
+    <a href="sms:7755020332">Text Me</a>
     <a href="#quote">Get Quote</a>
   </div>
 
@@ -636,7 +720,7 @@
         </p>
         <div class="hero-buttons">
           <a class="primary-btn" href="#quote">Get a Free Quote</a>
-          <a class="secondary-btn" href="#services">View Services</a>
+          <a class="secondary-btn" href="sms:7755020332">Text Photos: 775-502-0332</a>
         </div>
       </div>
       <div class="scroll-indicator">Scroll</div>
@@ -734,12 +818,30 @@
       </div>
     </section>
 
+
+
+    <section class="text-cta" id="text-me">
+      <div class="text-cta-card reveal">
+        <div>
+          <div class="eyebrow">Fastest Quote</div>
+          <h2>Text me photos.</h2>
+          <p>
+            For the quickest price, text clear photos of what you need removed, your city or area, and when you want it gone.
+          </p>
+        </div>
+        <div class="phone-actions">
+          <a class="phone-btn primary" href="sms:7755020332">Text 775-502-0332</a>
+          <a class="phone-btn secondary" href="tel:7755020332">Call 775-502-0332</a>
+        </div>
+      </div>
+    </section>
+
     <section class="quote" id="quote">
       <div class="quote-box reveal">
         <div class="eyebrow">Get Started</div>
         <h2>Ready to clear it out?</h2>
         <p>
-          Tell us what needs to go. We’ll follow up with a fast quote and the next available pickup window.
+          Tell us what needs to go. We’ll follow up with a fast quote and the next available pickup window. You can also call or text 775-502-0332.
         </p>
 
         <form class="quote-form" id="quoteForm" action="https://formspree.io/f/xvzyrwdq" method="POST">
@@ -758,7 +860,7 @@
 
   <footer>
     <span>© <span id="year"></span> Peavine Junk. All rights reserved.</span>
-    <span>Reno • Sparks • North Valleys • Surrounding Areas</span>
+    <span>Call / Text: <a href="tel:7755020332">775-502-0332</a> • Reno • Sparks • North Valleys • Surrounding Areas</span>
   </footer>
 
   <script>
